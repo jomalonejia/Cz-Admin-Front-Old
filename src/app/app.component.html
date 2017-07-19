@@ -1,1 +1,4 @@
-<router-outlet></router-outlet>
+<main [class.menu-collapsed]="isMenuCollapsed$ | async" baThemeRun>
+  <div class="additional-bg"></div>
+  <router-outlet></router-outlet>
+</main>

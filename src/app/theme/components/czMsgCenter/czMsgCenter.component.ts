@@ -16,8 +16,6 @@ export class CzMsgCenter {
   constructor(private _czMsgCenterService:CzMsgCenterService) {
     this.notifications = this._czMsgCenterService.getNotifications();
     this.messages = this._czMsgCenterService.getMessages();
-
-    console.log(this.notifications);
   }
 
 }

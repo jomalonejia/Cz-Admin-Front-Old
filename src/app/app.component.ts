@@ -1,19 +1,22 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
+import {Store} from "@ngrx/store";
+import {Observable} from "rxjs/Observable";
+import * as $ from 'jquery';
+import * as reducers from './theme/reducers';
+import {LoginService} from "app/theme/service/login";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  title = 'app';
+  isMenuCollapsed$:Observable<boolean>;
 
-  constructor(private http:Http){}
+  constructor(private store:Store<reducers.State>) {
 
-  ngOnInit(){
-    /*this.http.get('/api/user/list').map(res => res.json()).subscribe(v => console.log(v));*/
+    this.isMenuCollapsed$ = this.store.select(reducers.getIsCollapsed);
   }
-
 }

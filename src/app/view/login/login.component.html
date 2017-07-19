@@ -1,0 +1,39 @@
+<div class="auth-main">
+  <div class="auth-block">
+    <h1 translate>{{'login.title'}}</h1>
+    <a routerLink="/register" class="auth-link" translate>{{'login.signup_link'}}</a>
+
+    <form [formGroup]="form"  class="form-horizontal">
+      <div class="form-group row" >
+        <label for="inputusername3" class="col-sm-2 control-label" translate>{{'login.username'}}</label>
+
+        <div class="col-sm-10">
+          <input [formControl]="username" type="username" class="form-control" id="inputusername3" placeholder="{{'login.username' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row" >
+        <label for="inputPassword3" class="col-sm-2 control-label" translate>{{'login.password'}}</label>
+
+        <div class="col-sm-10">
+          <input [formControl]="password" type="password" class="form-control" id="inputPassword3" placeholder="{{'login.password' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="offset-sm-2 col-sm-10">
+          <button [disabled]="!form.valid" type="button" (click)="login(form.value)" class="btn btn-default btn-auth" translate>{{'login.sign_in'}}</button>
+          <button type="button" (click)="logout()">logout</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="auth-sep"><span><span translate>{{'login.sign_from_app_text'}}</span></span></div>
+
+    <div class="al-share-auth">
+      <ul class="al-share clearfix">
+        <li><i class="socicon socicon-facebook" title="{{'login.share_on_facebook' | translate}}"></i></li>
+        <li><i class="socicon socicon-twitter" title="{{'login.share_on_twitter' | translate}}"></i></li>
+        <li><i class="socicon socicon-google" title="{{'login.share_on_google_plus' | translate}}"></i></li>
+      </ul>
+    </div>
+  </div>
+</div>

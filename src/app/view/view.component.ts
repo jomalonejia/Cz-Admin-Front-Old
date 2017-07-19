@@ -1,4 +1,7 @@
 import {Component} from '@angular/core';
+import {CzMenuService} from "app/theme/service/czMenu";
+import {Routes} from "@angular/router";
+import {PAGES_MENU} from "app/view/pages.menu";
 
 @Component({
   selector:'view',
@@ -6,5 +9,11 @@ import {Component} from '@angular/core';
 })
 
 export class ViewComponent{
+  constructor(private _menuService: CzMenuService,) {
 
+  }
+
+  ngOnInit() {
+    this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU);
+  }
 }
