@@ -2,11 +2,11 @@ import {Injectable} from "@angular/core";
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
 import {LoginService} from "../login/loginService";
 import {Action, Store} from "@ngrx/store";
-import * as reducers　from '../../reducers';
 import {Observable} from "rxjs/Observable";
+import * as reducers　from '../../reducers';
 
 @Injectable()
-export class AuthGuardService implements CanActivate{
+export class AuthGuardActive implements CanActivate{
 
 
   constructor(private store:Store<reducers.State>){

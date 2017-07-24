@@ -8,18 +8,22 @@ import {CzPageTop} from "./components";
 import {CzMsgCenter} from "./components";
 import {CzSidebar} from "./components";
 import {CzMenu} from "./components";
-import {CzMenuItem} from "./components/czMenu/czMenuItem";
+import {CzMenuItem} from "./components";
+import {CzCard} from "./components";
 
 import {CzSlimScroll} from "./directives";
 import {CzScrollPosition} from "./directives";
 
 import {CzMenuService} from "./service";
 import {LoginService} from "./service";
-import {AuthGuardService} from "./service";
+import {AuthGuardActive} from "./service";
+import {CanLoginActivate} from "./service";
 
 
 import {CzProfilePipe} from "./pipe";
 import {RouterModule} from "@angular/router";
+
+
 
 
 
@@ -32,7 +36,8 @@ const THEME_COMPONENTS = [
   CzMsgCenter,
   CzSidebar,
   CzMenu,
-  CzMenuItem
+  CzMenuItem,
+  CzCard
 
 ];
 
@@ -44,7 +49,8 @@ const NGA_DIRECTIVES = [
 const NGA_SERVICES = [
   CzMenuService,
   LoginService,
-  AuthGuardService
+  AuthGuardActive,
+  CanLoginActivate
 ];
 
 const THEME_PIPES = [

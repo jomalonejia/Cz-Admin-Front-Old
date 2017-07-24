@@ -35,3 +35,5 @@ export const getIsCollapsed = createSelector(getLayoutState,fromLayout.getIsColl
 export const getLoginState = (state:State) => state.login;
 export const getLoggedIn = createSelector(getLoginState,fromLogin.getLoggedIn);
 export const getToken = createSelector(getLoginState,fromLogin.getToken);
+export const getImgUrl = createSelector(getLoginState,fromLogin.getImgUrl);
+export const getUsername = createSelector(getLoginState,fromLogin.getUsername);

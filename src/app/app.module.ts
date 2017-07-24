@@ -1,8 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 import {Http, HttpModule, RequestOptions} from "@angular/http";
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 import {routing} from "./app.routing";
 
 import {ViewModule} from "./view/view.module";
@@ -16,13 +16,18 @@ import {reducer} from './theme/reducers'
 import {AuthConfig, AuthHttp, JwtHelper} from "angular2-jwt";
 import {EffectsModule} from "@ngrx/effects";
 import {LoginEffects} from './theme/effects';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+
+import * as constants from './theme/constants';
 
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
-    tokenName: 'token',
-    noJwtError: true,
-    tokenGetter: (() => localStorage.getItem('token')),
+    tokenName: constants.TOKEN_NAME,
+    headerName: constants.TOKEN_NAME,
+    noTokenScheme: true,
+    noJwtError: false,
+    tokenGetter: (() => JSON.parse(localStorage.getItem('login'))['token']),
   }), http, options);
 }
 
@@ -35,6 +40,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     HttpModule,
     ViewModule,
     ThemeModule.forRoot(),
+    NgbModule.forRoot(),
     StoreModule.provideStore(reducer),
     RouterStoreModule.connectRouter(),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
@@ -52,4 +58,5 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

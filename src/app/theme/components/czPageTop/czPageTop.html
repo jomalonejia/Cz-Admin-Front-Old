@@ -11,12 +11,17 @@
   <div class="user-profile clearfix">
     <div class="dropdown al-user-profile">
       <a class="profile-toggle-link dropdown-toggle" id="user-profile-dd" data-toggle="dropdown" aria-expanded="false">
-        <img src="{{ ( 'myProfile' | czProfilePipe ) }}">
+        <img src="{{ ( profile$ | async | czProfilePipe ) }}">
       </a>
       <ul class="dropdown-menu top-dropdown-menu profile-dropdown" aria-labelledby="user-profile-dd">
-        <li class="dropdown-item"><a href><i class="fa fa-user"></i>Profile</a></li>
-        <li class="dropdown-item"><a href><i class="fa fa-cog"></i>Settings</a></li>
-        <li class="dropdown-item"><a href (click)="logout()" class="signout" ><i class="fa fa-power-off"></i>Sign out</a></li>
+        <div *ngIf="isLoggedIn$|async">
+          <li class="dropdown-item"><a routerLink="/view/profile"><i class="fa fa-user"></i>Profile</a></li>
+          <li class="dropdown-item"><a routerLink="/view/settings"><i class="fa fa-cog"></i>Settings</a></li>
+        </div>
+        <li *ngIf="isLoggedIn$|async ; else signIn" class="dropdown-item"><a href (click)="logout()" class="signout" ><i class="fa fa-power-off"></i>Sign out</a></li>
+        <ng-template  #signIn  >
+          <li class="dropdown-item"><a routerLink="/login"  class="signout" ><i class="fa fa-power-off"></i>Sign in</a></li>
+        </ng-template>
       </ul>
     </div>
     <cz-msg-center></cz-msg-center>

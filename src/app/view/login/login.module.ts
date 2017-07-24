@@ -6,7 +6,7 @@ import { Http, RequestOptions } from '@angular/http';
 import {LoginComponent} from "./login.component";
 import {AppTranslationModule} from "app/app.translation.module";
 import {routing} from "./login.routing";
-import {AuthHttp, AuthConfig, JwtHelper} from 'angular2-jwt';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 
 @NgModule({
@@ -14,6 +14,7 @@ import {AuthHttp, AuthConfig, JwtHelper} from 'angular2-jwt';
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
+    NgbModule,
     AppTranslationModule,
     routing
   ],

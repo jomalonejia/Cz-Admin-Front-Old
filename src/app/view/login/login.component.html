@@ -4,24 +4,21 @@
     <a routerLink="/register" class="auth-link" translate>{{'login.signup_link'}}</a>
 
     <form [formGroup]="form"  class="form-horizontal">
-      <div class="form-group row" >
-        <label for="inputusername3" class="col-sm-2 control-label" translate>{{'login.username'}}</label>
-
+      <div class="form-group row" [ngClass]="{'has-error': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
+        <label for="username" class="col-sm-2 control-label" translate>{{'login.username'}}</label>
         <div class="col-sm-10">
-          <input [formControl]="username" type="username" class="form-control" id="inputusername3" placeholder="{{'login.username' | translate}}">
+          <input [formControl]="username" type="username" class="form-control" id="username" placeholder="{{'login.username' | translate}}">
         </div>
       </div>
       <div class="form-group row" >
-        <label for="inputPassword3" class="col-sm-2 control-label" translate>{{'login.password'}}</label>
-
+        <label for="password" class="col-sm-2 control-label" translate>{{'login.password'}}</label>
         <div class="col-sm-10">
-          <input [formControl]="password" type="password" class="form-control" id="inputPassword3" placeholder="{{'login.password' | translate}}">
+          <input [formControl]="password" type="password" class="form-control" id="password" placeholder="{{'login.password' | translate}}">
         </div>
       </div>
       <div class="form-group row">
         <div class="offset-sm-2 col-sm-10">
           <button [disabled]="!form.valid" type="button" (click)="login(form.value)" class="btn btn-default btn-auth" translate>{{'login.sign_in'}}</button>
-          <button type="button" (click)="logout()">logout</button>
         </div>
       </div>
     </form>

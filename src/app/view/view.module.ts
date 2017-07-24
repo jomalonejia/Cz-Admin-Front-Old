@@ -5,9 +5,12 @@ import {ThemeModule} from "app/theme/themeModule";
 import {AppTranslationModule} from "app/app.translation.module";
 import {CommonModule} from "@angular/common";
 import {JwtHelper} from "angular2-jwt";
+import {SettingsComponent} from "app/view/settings/settings.component";
 
 @NgModule({
-  declarations:[ViewComponent],
+  declarations:[
+    ViewComponent,
+  ],
   imports:[
     CommonModule,
     ThemeModule,
