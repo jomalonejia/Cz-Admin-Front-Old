@@ -1,14 +1,14 @@
 export class SettingsModel {
-  public firstName:string;
-  public lastName:string;
+  public firstname:string;
+  public lastname:string;
   public username:string;
   public password:string;
   public email:string;
 
 
-  constructor(firstName: string, lastName: string, username: string, password: string, email: string) {
-    this.firstName = firstName;
-    this.lastName = lastName;
+  constructor(firstname: string, lastname: string, username: string, password: string, email: string) {
+    this.firstname = firstname;
+    this.lastname = lastname;
     this.username = username;
     this.password = password;
     this.email = email;

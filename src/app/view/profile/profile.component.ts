@@ -1,5 +1,13 @@
+import {Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild} from "@angular/core";
+import {FileItem, FileUploader, ParsedResponseHeaders} from "ng2-file-upload";
+import {Observable} from "rxjs/Observable";
+import {Router} from "@angular/router";
+import {Action, Store} from "@ngrx/store";
+import * as reducers from '../../component/reducers';
+import * as actions from '../../component/actions';
+import * as constants from '../../component/constants';
 
-import {Component} from "@angular/core";
+
 @Component({
   selector:'profile',
   templateUrl:'./profile.component.html',
@@ -7,15 +15,52 @@ import {Component} from "@angular/core";
 })
 
 export class ProfileComponent{
-  public defaultPicture = 'assets/img/theme/no-photo.png';
-  public profile:any = {
-    picture: 'assets/img/app/profile/Nasta.png'
-  };
+  public defaultPicture = 'default';
+  public profile$:Observable<string>;
+  public uploadInProgress:boolean;
+
+  @Input() canDelete:boolean = true;
+
+  uploader:FileUploader
 
 
-  constructor() {
+
+  selectedFileOnChanged() {
+    //console.log('change');
   }
 
-  ngOnInit() {
+  constructor(private router:Router,
+              private store:Store<reducers.State>,
+              private renderer:Renderer2) {
+
+    this.profile$ = this.store.select(reducers.getImgUrl);
+
+    const token = JSON.parse(localStorage.getItem('login'))['token'];
+    this.uploader = new FileUploader({
+      url: "api/user/profileUpload",
+      method: "POST",
+      itemAlias: "uploadedfile",
+      authTokenHeader:constants.TOKEN_HEADER,
+      authToken:token,
+      autoUpload:true
+    });
   }
+
+  ngOnInit(){
+    this.uploader.onSuccessItem = (item:FileItem, response:string, status:number, headers:ParsedResponseHeaders) => {
+      if (status == 200) {
+        this.store.dispatch(new actions.UploadProfileSuccessAction(response));
+      }else {
+        console.log('error')
+      }
+    }
+
+  }
+
+  bringFileSelector():boolean {
+    this.renderer.selectRootElement('#fileUpload').click();
+    return false;
+  }
+
+
 }

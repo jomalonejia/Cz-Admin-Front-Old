@@ -4,11 +4,11 @@ import {SettingsModel} from "./settings.model";
 import {SettingsService} from "app/view/settings/settings.service";
 import {Store} from "@ngrx/store";
 import 'rxjs/add/operator/filter';
-import * as reducers from '../../theme/reducers';
+import * as reducers from '../../component/reducers';
 import {isEmpty} from './setting.util';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/empty';
-import * as actions from 'app/theme/actions';
+import * as actions from 'app/component/actions';
 import {Router} from "@angular/router";
 
 @Component({
@@ -20,8 +20,8 @@ import {Router} from "@angular/router";
 export class SettingsComponent {
 
   public profileForm: FormGroup;
-  public firstName: AbstractControl;
-  public lastName: AbstractControl;
+  public firstname: AbstractControl;
+  public lastname: AbstractControl;
   public username: AbstractControl;
   public password: AbstractControl;
   public email: AbstractControl;
@@ -30,14 +30,14 @@ export class SettingsComponent {
               private settingsService: SettingsService,
               private store: Store<reducers.State>,) {
     this.profileForm = fb.group({
-      'firstName': ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20)])],
-      'lastName': ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20)])],
+      'firstname': ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20)])],
+      'lastname': ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20)])],
       'username': ['',],
       'password': ['', Validators.compose([Validators.maxLength(15)])],
       'email': ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(25)])]
     });
-    this.firstName = this.profileForm.controls['firstName'];
-    this.lastName = this.profileForm.controls['lastName'];
+    this.firstname = this.profileForm.controls['firstname'];
+    this.lastname = this.profileForm.controls['lastname'];
     this.username = this.profileForm.controls['username'];
     this.password = this.profileForm.controls['password'];
     this.email = this.profileForm.controls['email'];
@@ -52,8 +52,8 @@ export class SettingsComponent {
             return Observable.empty();
           })
           .subscribe(settings => {
-            this.firstName.setValue(settings['firstName']);
-            this.lastName.setValue(settings['lastName']);
+            this.firstname.setValue(settings['firstname']);
+            this.lastname.setValue(settings['lastname']);
             this.username.setValue(settings['username']);
             this.email.setValue(settings['email']);
 

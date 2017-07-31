@@ -1,1 +1,42 @@
-prifole
+<div class="widgets">
+  <div class="row">
+    <div class="col-md-12">
+      <cz-card title="{{'view.profile.title' | translate}}" baCardClass="with-scroll">
+        <div class="picture-group" [ngClass]="{uploading: uploadInProgress}">
+          <div class="picture-wrapper" (click)="bringFileSelector();">
+            <img [src]="profile$ | async | czProfilePipe" *ngIf="profile$">
+            <img [src]="defaultPicture | async | czProfilePipe" *ngIf="!!!profile$ && !!defaultPicture">
+            <div class="loading" *ngIf="uploader.isUploading">
+              <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+              </div>
+            </div>
+          </div>
+          <i class="ion-ios-close-outline" (click)="removePicture();" *ngIf="picture"></i>
+          <a href class="change-picture" (click)="bringFileSelector();">Change profile Picture</a>
+          <input type="file" hidden="true" id="fileUpload"
+                 ng2FileSelect
+                 [uploader]="uploader"
+                 (change)="selectedFileOnChanged($event)"/>
+          <!--<div class="form-group row">
+            <div class="offset-sm-2 col-sm-10">
+              <button  type="button"
+                       (click)="startUpload()"
+                       class="btn btn-default btn-auth">upload</button>
+            </div>
+          </div>-->
+
+         <!-- <input #fileUpload
+                 ngFileSelect
+                 [options]="uploaderOptions"
+                 (onUpload)="_onUpload($event)"
+                 (beforeUpload)="beforeUpload($event)"
+                 type="file"
+                 id="fileUpload"
+                 hidden="true">-->
+        </div>
+      </cz-card>
+    </div>
+  </div>
+</div>

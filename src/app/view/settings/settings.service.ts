@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
-import * as constants from '../../theme/constants';
+import * as constants from '../../component/constants';
 import {SettingsModel} from "app/view/settings/settings.model";
 import {AuthHttp} from "angular2-jwt";
 

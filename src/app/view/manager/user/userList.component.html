@@ -1,0 +1,12 @@
+<div class="widgets">
+
+  <div class="row">
+    <cz-card title="Basic Example" baCardClass="with-scroll" class="smart-table-container">
+      <ng2-smart-table
+        [settings]="settings"
+        [source]="source"
+        (editConfirm)="onEditConfirm($event)"
+        (deleteConfirm)="onDeleteConfirm($event)"></ng2-smart-table>
+    </cz-card>
+  </div>
+</div>

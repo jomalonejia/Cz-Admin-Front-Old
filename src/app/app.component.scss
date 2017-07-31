@@ -1,5 +1,5 @@
-@import './theme/sass/conf/conf';
-@import './theme/components/czSidebar/czSidebar';
+@import './component/sass/conf/conf';
+@import './component/components/czSidebar/czSidebar';
 
 :host /deep/ {
   @mixin layout-collapsed() {

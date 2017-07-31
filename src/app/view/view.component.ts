@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {CzMenuService} from "app/theme/service/czMenu";
+import {CzMenuService} from "app/component/service/czMenu";
 import {Routes} from "@angular/router";
 import {PAGES_MENU} from "app/view/pages.menu";
 

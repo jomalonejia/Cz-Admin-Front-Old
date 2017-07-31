@@ -3,10 +3,10 @@ import {FormGroup, FormBuilder, FormControl, AbstractControl, Validators} from '
 import {LoginUser} from "./login.model";
 import {Router} from '@angular/router';
 import {Store} from "@ngrx/store";
-import * as reducers from '../../theme/reducers';
-import * as loginAction from '../../theme/actions/login';
+import * as reducers from '../../component/reducers';
+import * as loginAction from '../../component/actions/login';
 import {Observable} from "rxjs/Observable";
-import {GlobalState} from "app/theme/global.state";
+import {GlobalState} from "app/component/global.state";
 
 @Component({
   selector: 'login',
