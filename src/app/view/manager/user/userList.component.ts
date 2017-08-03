@@ -1,5 +1,4 @@
 import {Component} from "@angular/core";
-import {Car} from "app/component/actions/car";
 import {LocalDataSource} from "ng2-smart-table";
 import {AuthHttp} from "angular2-jwt";
 import {UserListService} from "./userList.service";
@@ -35,11 +34,11 @@ export class UserComponent{
       perPage:10
     },
     columns: {
-      firstname: {
+      firstName: {
         title: 'First Name',
         type: 'string'
       },
-      lastname: {
+      lastName: {
         title: 'Last Name',
         type: 'string'
       },
@@ -59,9 +58,9 @@ export class UserComponent{
         valuePrepareFunction:(cell,row)=>{
           let res = '';
           for (let obj of cell) {
-            if(obj['name'] === 'ROLE_ADMIN') {
+            if(obj['roleName'] === 'ROLE_ADMIN') {
               res += 'a';
-            }else if(obj['name'] === 'ROLE_USER'){
+            }else if(obj['roleName'] === 'ROLE_USER'){
               res += 'u';
             }
               // case 'ROLE_ADMIN': res += `<ngu-letter-avatar avatar-data="'A'" ></ngu-letter-avatar>`;

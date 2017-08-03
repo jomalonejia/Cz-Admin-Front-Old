@@ -15,7 +15,7 @@ export interface State {
 
 const reducers = {
   layout: fromLayout.layoutReducer,
-  login: fromLogin.loginReducer
+  login: fromLogin.loginReducer,
 }
 
 const developmentReducer: ActionReducer<State> = compose(localStorageSync({keys: Object.keys(reducers),rehydrate:true}), combineReducers)(reducers);
@@ -25,7 +25,8 @@ export function reducer(state: any, action: any) {
   if (environment.production) {
     return productionReducer(state, action);
   } else {
-    return developmentReducer(state, action);
+    return productionReducer(state, action);
+    //return developmentReducer(state, action);
   }
 }
 

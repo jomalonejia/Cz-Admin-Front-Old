@@ -17,20 +17,21 @@ const initialState = {
 }
 
 
-export function loginReducer(state:LoginState=initialState,action:login.loginActions):LoginState{
+export function loginReducer(state:LoginState=initialState,action:login.loginActions):LoginState|void{
   switch (action.type){
     case login.LOGIN_SUCCESS:
-      const result = action.payload;
-      const token = result['token'];
-      const imgUrl = result['imgUrl'];
-      const username = result['username'];
+      const login_result = action.payload;
+      const login_token = login_result['token'];
+      const login_imgUrl = login_result['imgUrl'];
+      const login_username = login_result['username'];
       return Object.assign(
         {}, state,
         {
           loggedIn:true,
-          token:token,
-          imgUrl:imgUrl,
-          username:username
+          loginFailed:false,
+          token:login_token,
+          imgUrl:login_imgUrl,
+          username:login_username
         }
         );
     case login.LOGIN_FAILED:
@@ -39,6 +40,24 @@ export function loginReducer(state:LoginState=initialState,action:login.loginAct
       localStorage.removeItem('login');
       return Object.assign({},state,initialState);
     case login.LOGOUT_FAILED:
+      return Object.assign({},state,initialState);
+    case login.REGISTER_SUCCESS:
+      return Object.assign({},state,initialState);
+      /*const register_result = action.payload;
+      const register_token = register_result['token'];
+      const register_imgUrl = register_result['imgUrl'];
+      const register_username = register_result['username'];
+      return Object.assign(
+        {}, state,
+        {
+          loggedIn:true,
+          loginFailed:false,
+          token:register_token,
+          imgUrl:register_imgUrl,
+          username:register_username
+        }
+      );*/
+    case login.REGISTER_FAILED:
       return Object.assign({},state,initialState);
     case login.UPLOAD_PROFILE_SUCCESS:
       console.log(action.payload);
@@ -51,3 +70,4 @@ export const getLoggedIn = (state:LoginState) => state.loggedIn;
 export const getToken = (state:LoginState) => state.token;
 export const getImgUrl = (state:LoginState) => state.imgUrl;
 export const getUsername = (state:LoginState) => state.username;
+

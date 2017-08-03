@@ -3,13 +3,13 @@
   <div class="auth-block">
     <h1 translate>{{'view.settings.title'}}</h1>
     <form [formGroup]="profileForm"  class="form-horizontal">
-      <div class="form-group" [ngClass]="{'has-error': (!firstname.valid && firstname.touched), 'has-success': (firstname.valid && firstname.touched)}">
-        <label for="firstname">firstname</label>
-        <input [formControl]="firstname" type="text" class="form-control" id="firstname" placeholder="firstname" name="firstname">
+      <div class="form-group" [ngClass]="{'has-error': (!firstName.valid && firstName.touched), 'has-success': (firstName.valid && firstName.touched)}">
+        <label for="firstName">firstName</label>
+        <input [formControl]="firstName" type="text" class="form-control" id="firstName" placeholder="firstName" name="firstName">
       </div>
-      <div class="form-group" [ngClass]="{'has-error': (!lastname.valid && lastname.touched), 'has-success': (lastname.valid && lastname.touched)}">
-        <label for="lastname">lastname</label>
-        <input [formControl]="lastname" type="text" class="form-control" id="lastname" placeholder="lastname" name="lastname">
+      <div class="form-group" [ngClass]="{'has-error': (!lastName.valid && lastName.touched), 'has-success': (lastName.valid && lastName.touched)}">
+        <label for="lastName">lastName</label>
+        <input [formControl]="lastName" type="text" class="form-control" id="lastName" placeholder="lastName" name="lastName">
       </div>
       <div class="form-group">
         <label for="username">Username</label>

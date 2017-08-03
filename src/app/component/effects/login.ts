@@ -14,8 +14,8 @@ import { of } from 'rxjs/observable/of';
 import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {LoginUser} from "app/view/login/login.model";
-import {isAuth} from '../../view/login/login.util';
 import {GlobalState} from "app/component/global.state";
+import * as constants from '../constants';
 
 @Injectable()
 
@@ -24,7 +24,6 @@ export class LoginEffects {
   constructor(private action$: Actions,
               private loginService: LoginService,
               private router:Router,
-              private http:Http,
               private state:GlobalState) {
   }
 
@@ -34,13 +33,15 @@ export class LoginEffects {
     .debounceTime(1000)
     .map(toPayload)
     .switchMap((user:LoginUser) => {
-      return this.loginService.login('api/user/login',user)
+      return this.loginService.login(constants.LOGIN_URL,user)
         .map(res => {
           this.router.navigateByUrl('view/main');
           return new login.LoginSuccessAction(res.json());
         })
-        .catch(() => {
-          console.log('login error');
+        .catch((err) => {
+          if(err.status == constants.UNAUTHORIZED){
+            this.state.login_error_essage$.next(constants.LOGIN_FAILED_MESSAGE);
+          }
           return of(new login.LoginFailedAction());
           });
     });
@@ -51,7 +52,7 @@ export class LoginEffects {
     .debounceTime(1000)
     .map(toPayload)
     .switchMap(() => {
-       return this.loginService.logout('api/user/logout')
+       return this.loginService.logout(constants.LOGOUT_URL)
          .map(res => {
            this.router.navigateByUrl('login');
            return new login.LogoutSuccessAction(res.json());

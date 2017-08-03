@@ -16,12 +16,14 @@ import {CzScrollPosition} from "./directives";
 
 import {CzMenuService} from "./service";
 import {LoginService} from "./service";
+import {RegisterService} from "./service";
 import {AuthGuardActive} from "./service";
 import {CanLoginActivate} from "./service";
 
 
 import {CzProfilePipe} from "./pipe";
 import {RouterModule} from "@angular/router";
+
 
 
 
@@ -43,6 +45,7 @@ const NGA_DIRECTIVES = [
 const NGA_SERVICES = [
   CzMenuService,
   LoginService,
+  RegisterService,
   AuthGuardActive,
   CanLoginActivate
 ];

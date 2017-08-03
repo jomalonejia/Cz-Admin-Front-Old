@@ -15,9 +15,11 @@ import {reducer} from './component/reducers'
 import {AuthConfig, AuthHttp, JwtHelper} from "angular2-jwt";
 import {EffectsModule} from "@ngrx/effects";
 import {LoginEffects} from './component/effects';
+import {RegisterEffects} from "./component/effects";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 import * as constants from './component/constants';
+
 
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
@@ -43,6 +45,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     StoreModule.provideStore(reducer),
     RouterStoreModule.connectRouter(),
     EffectsModule.run(LoginEffects),
+    EffectsModule.run(RegisterEffects),
     routing
   ],
   providers: [

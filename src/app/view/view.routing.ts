@@ -14,6 +14,7 @@ export const routes: Routes = [
       {path:'manager',loadChildren:'./manager/manager.module#ManagerModule'},
       {path:'settings', loadChildren:'./settings/settings.module#SettingsModule'},
       {path:'profile', loadChildren:'./profile/profile.module#ProfileModule'},
+      {path:'message', loadChildren:'./message/message.module#MessageModule'}
     ]
   },
 

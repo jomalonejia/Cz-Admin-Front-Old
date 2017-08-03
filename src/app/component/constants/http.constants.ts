@@ -2,6 +2,8 @@ export const URL_PREFIX = 'api/';
 
 export const USER_PREFIX = 'user/'
 export const LOGIN_URL = URL_PREFIX + USER_PREFIX + 'login';
+export const LOGOUT_URL = URL_PREFIX + USER_PREFIX + 'logout';
+export const REGISTER_URL = URL_PREFIX + USER_PREFIX + 'register';
 export const GETSETTINGS_URL = URL_PREFIX + USER_PREFIX + 'getSettings';
 export const SETSETTINGS_URL = URL_PREFIX + USER_PREFIX + 'setSettings';
 export const GETUSERLIST_URL = URL_PREFIX + USER_PREFIX + 'listUserWithRole';

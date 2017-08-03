@@ -20,8 +20,12 @@ export class LoginComponent {
   public password: AbstractControl;
   public submitted: boolean = false;
 
+  private isLoginFailed:boolean = false;
+  private errorMessage:string;
+
   constructor(private fb: FormBuilder,
-              private store:Store<reducers.State>
+              private store:Store<reducers.State>,
+              private state:GlobalState
               ) {
     this.form = fb.group({
       'username': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
@@ -31,6 +35,7 @@ export class LoginComponent {
     this.username = this.form.controls['username'];
     this.password = this.form.controls['password'];
 
+
   }
 
   public login(user: LoginUser): void {
@@ -38,5 +43,12 @@ export class LoginComponent {
     if (this.form.valid) {
       this.store.dispatch(new loginAction.LoginAction(user));
     }
+    this.state.login_error_essage$.subscribe(errorMessage => {
+      if(errorMessage){
+        this.isLoginFailed = true;
+        this.errorMessage = errorMessage;
+        setTimeout(() => {this.isLoginFailed=false;},2000);
+      }
+    });
   }
 }
