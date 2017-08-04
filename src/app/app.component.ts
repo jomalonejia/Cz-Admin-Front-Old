@@ -19,13 +19,13 @@ export class AppComponent {
   isMenuCollapsed$: Observable<boolean>;
 
   constructor(private store: Store<reducers.State>) {
-    let token = JSON.parse(localStorage.getItem('login'))['token'];
-    // console.log(token);
+   /* let token = JSON.parse(localStorage.getItem('login'))['token'];
+    console.log(token);*/
     // console.log(tokenNotExpired(JSON.parse(localStorage.getItem('login'))['token']));
     // console.log(tokenNotExpired(consts.TOKEN_NAME));
-    if (tokenNotExpired(consts.TOKEN_NAME)) {
+   /* if (!tokenNotExpired(consts.TOKEN_NAME)) {
       this.store.dispatch(new actions.LogoutAction);
-    }
+    }*/
     this.isMenuCollapsed$ = this.store.select(reducers.getIsCollapsed);
 
   }

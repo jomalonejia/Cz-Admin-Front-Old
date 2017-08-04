@@ -25,8 +25,7 @@ export function reducer(state: any, action: any) {
   if (environment.production) {
     return productionReducer(state, action);
   } else {
-    return productionReducer(state, action);
-    //return developmentReducer(state, action);
+    return developmentReducer(state, action);
   }
 }
 

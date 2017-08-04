@@ -1,6 +1,13 @@
 <div class="m-message" >
-  <ul>
-    <li >
+  <ul *ngFor="let message of messages">
+    <li>
+      <p class="time"><span>{{message.sentTime}}</span></p>
+      <div class="main" [ngClass]="{'self':message.isSelf}">
+        <img class="avatar" width="30" height="30" [src]="'assets/dist/images/3.jpg'"/>
+        <div class="text">{{message.text}}</div>
+      </div>
+    </li>
+    <!--<li>
       <p class="time"><span>16:48</span></p>
       <div class="main">
         <img class="avatar" width="30" height="30" [src]="'assets/dist/images/2.png'"/>
@@ -13,6 +20,7 @@
         <img class="avatar" width="30" height="30" [src]="'assets/dist/images/3.jpg'"/>
         <div class="text">hello too</div>
       </div>
-    </li>
+    </li>-->
+
   </ul>
 </div>

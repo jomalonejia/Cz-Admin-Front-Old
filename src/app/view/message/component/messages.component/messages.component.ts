@@ -1,4 +1,5 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
+import {Message} from "app/component/model/message";
 
 @Component({
   selector:'message-messages',
@@ -7,5 +8,5 @@ import {Component} from "@angular/core";
 })
 
 export class MessagesComponent{
-
+  @Input() messages:Message[];
 }

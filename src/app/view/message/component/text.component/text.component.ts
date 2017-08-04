@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, EventEmitter, Output} from "@angular/core";
 
 @Component({
   selector:'message-text',
@@ -7,5 +7,4 @@ import {Component} from "@angular/core";
 })
 
 export class TextComponent{
-
 }

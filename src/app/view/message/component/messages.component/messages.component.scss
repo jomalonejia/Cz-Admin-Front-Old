@@ -1,6 +1,7 @@
 .m-message {
   padding: 10px 15px;
   overflow-y: scroll;
+  height: calc(100% - 10pc);
   ul {
     list-style: none;
   }

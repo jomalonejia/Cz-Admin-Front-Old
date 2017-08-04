@@ -4,7 +4,8 @@
       <message-list></message-list>
     </div>
     <div class="main">
-      <message-messages></message-messages>
+      <button (click)="click()">click</button>
+      <message-messages [messages]="messages"></message-messages>
       <message-text></message-text>
     </div>
   </div>

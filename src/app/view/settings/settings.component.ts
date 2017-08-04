@@ -56,7 +56,6 @@ export class SettingsComponent {
             this.lastName.setValue(settings['lastName']);
             this.username.setValue(settings['username']);
             this.email.setValue(settings['email']);
-
           });
       });
   }
