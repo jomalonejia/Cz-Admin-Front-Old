@@ -1,3 +1,7 @@
 <div class="m-text">
-  <textarea placeholder="按 Ctrl + Enter 发送" ></textarea>
+  <textarea
+    #messageArea
+    placeholder="按Enter 发送"
+    (keydown.enter)="send($event.target.value);false"
+    ></textarea>
 </div>

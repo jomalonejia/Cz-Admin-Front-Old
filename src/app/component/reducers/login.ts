@@ -7,23 +7,26 @@ export interface LoginState{
   token:string;
   imgUrl:string;
   username:string;
+  userId:number;
 }
 
 const initialState = {
   loggedIn:false,
   token:null,
   imgUrl:'default.png',
-  username:''
+  username:'',
+  userId:0
 }
 
 
-export function loginReducer(state:LoginState=initialState,action:login.loginActions):LoginState|void{
+export function loginReducer(state:LoginState=initialState,action:login.loginActions):LoginState{
   switch (action.type){
     case login.LOGIN_SUCCESS:
       const login_result = action.payload;
       const login_token = login_result['token'];
       const login_imgUrl = login_result['imgUrl'];
       const login_username = login_result['username'];
+      const login_userId = login_result['id'];
       return Object.assign(
         {}, state,
         {
@@ -70,4 +73,5 @@ export const getLoggedIn = (state:LoginState) => state.loggedIn;
 export const getToken = (state:LoginState) => state.token;
 export const getImgUrl = (state:LoginState) => state.imgUrl;
 export const getUsername = (state:LoginState) => state.username;
+export const getUserId = (state:LoginState) => state.userId;
 

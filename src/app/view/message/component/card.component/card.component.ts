@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
 
 @Component({
   selector:'message-card',
@@ -7,5 +7,6 @@ import {Component} from "@angular/core";
 })
 
 export class CardComponent{
-
+  @Input() username:string;
+  @Input() profile:String;
 }

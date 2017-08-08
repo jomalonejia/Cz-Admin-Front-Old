@@ -1,18 +1,21 @@
 import {Thread} from "./thread";
-export class Message{
-    private id:number;
-    private sentTime:Date;
-    private isRead:boolean;
-    private username:string;
-    private text:string;
-    private isSelf:boolean;
+export class Message {
+  public messageId:string;
+  public threadId: string;
+  public username: string;
+  public text: string;
+  public sentTime: Date;
+  public isRead: boolean;
+  public isFailed: boolean;
 
-  constructor(id,sentTime,isRead,username,text,isSelf){
-    this.id = id;
-    this.sentTime = sentTime;
-    this.isRead = isRead;
-    this.username = username;
-    this.text = text;
-    this.isSelf = isSelf;
+
+  constructor(obj?) {
+    this.messageId = obj && obj.messageId || '';
+    this.threadId = obj && obj.threadId || '';
+    this.username = obj && obj.username || '';
+    this.text = obj && obj.text || '';
+    this.sentTime = obj && obj.sentTime || '';
+    this.isRead = obj && obj.isRead || false;
+    this.isFailed = obj && obj.isFailed || false;
   }
 }

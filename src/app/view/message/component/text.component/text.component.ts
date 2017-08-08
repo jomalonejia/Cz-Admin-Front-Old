@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from "@angular/core";
+import {Component, EventEmitter, Output, ViewChild} from "@angular/core";
 
 @Component({
   selector:'message-text',
@@ -7,4 +7,11 @@ import {Component, EventEmitter, Output} from "@angular/core";
 })
 
 export class TextComponent{
+  @Output() sendMessage = new EventEmitter<string>();
+  @ViewChild('messageArea') messageArea;
+
+  send(message){
+    this.sendMessage.next(message);
+    this.messageArea.nativeElement.value = '';
+  }
 }

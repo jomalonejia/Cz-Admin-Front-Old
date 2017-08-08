@@ -5,17 +5,20 @@ import {environment} from "environments/environment";
 import {storeFreeze} from 'ngrx-store-freeze';
 import * as fromLayout from '../reducers/layout';
 import * as fromLogin from '../reducers/login';
+import * as fromMessage from '../reducers/message';
 import {localStorageSync} from "ngrx-store-localstorage";
 
 
 export interface State {
   layout: fromLayout.LayoutState;
   login: fromLogin.LoginState;
+  message:fromMessage.MessageState;
 }
 
 const reducers = {
   layout: fromLayout.layoutReducer,
   login: fromLogin.loginReducer,
+  message:fromMessage.messageReducer
 }
 
 const developmentReducer: ActionReducer<State> = compose(localStorageSync({keys: Object.keys(reducers),rehydrate:true}), combineReducers)(reducers);
@@ -37,3 +40,7 @@ export const getLoggedIn = createSelector(getLoginState,fromLogin.getLoggedIn);
 export const getToken = createSelector(getLoginState,fromLogin.getToken);
 export const getImgUrl = createSelector(getLoginState,fromLogin.getImgUrl);
 export const getUsername = createSelector(getLoginState,fromLogin.getUsername);
+export const getUserId = createSelector(getLoginState,fromLogin.getUserId);
+
+export const getMessageState = (state:State) => state.message;
+export const getActiveUser = createSelector(getMessageState,fromMessage.getActiveUser);

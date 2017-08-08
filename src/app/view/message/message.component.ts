@@ -2,6 +2,14 @@ import {Component} from '@angular/core';
 import {$WebSocket, WebSocketSendMode} from 'angular2-websocket/angular2-websocket'
 import {Subscription} from "rxjs/Subscription";
 import {Message} from "app/component/model/message";
+import {Store} from "@ngrx/store";
+import { UUID } from 'angular2-uuid';
+
+import * as _ from 'lodash';
+import * as reducers from '../../component/reducers';
+import {Observable} from "rxjs/Observable";
+import {MessageService} from "app/view/message/message.service";
+import {MessageUser} from "./model/message.user";
 
 @Component({
   selector: 'message-component',
@@ -13,51 +21,114 @@ export class MessageComponent {
 
   ws: $WebSocket;
   sub: Subscription;
-  messages:Message[] = []
-  message:Message;
+  messages: Message[] = [];
+  message: Message;
+  friends: MessageUser[] = [];
+  username: string;
+  profile$: Observable<string>;
 
-  constructor(){
-    let message1 = new Message(1,new Date,true,'xiaoming','ni hao a',false);
-    let message2 = new Message(2,new Date,false,'xiaowang','ni ye hao a',true);
-    this.messages.push(message1);
-    this.messages.push(message2);
+  constructor(private store: Store<reducers.State>,
+              private messageService: MessageService) {
+    this.store.select(reducers.getUsername)
+      .subscribe(username => this.username = username);
+    this.profile$ = this.store.select(reducers.getImgUrl);
+
+    this.messageService.listRelatedUsers(1)
+      .map(res => res.json())
+      .subscribe(v => {
+        v.map(user => {
+          let friend = new MessageUser();
+          Object.assign(friend, user);
+          this.friends.push(friend);
+        })
+      });
+
+    /*let message1 = new Message(UUID.UUID(),'xiaoming','ni hao a',new Date,true,false);
+     let message2 = new Message(UUID.UUID(),'xiaowang','ni ye hao a',new Date,true,true);
+     this.messages.push(message1);
+     this.messages.push(message2);*/
   }
 
-  ngAfterViewInit() { this.initWebSocket(); }
-  ngOnDestroy() { this.destroyWebSocket(); }
+  ngAfterViewInit() {
+    this.initWebSocket();
+  }
+
+  ngOnDestroy() {
+    this.destroyWebSocket();
+  }
+
   initWebSocket(): void {
     this.ws = new $WebSocket('ws://localhost:3000/test');
-    this.sub = this.ws.getDataStream().subscribe(
-      data => {
-        console.log(data);
-        //this part is following the example on the github page
-        //makes me unsure because the close method will force a close and true/false only signifies if the closing is immediate or not
-        //even if i comment out this line, i still get the same behavior
-      },
-      err => console.error(err)
-    );
+    this.sub = this.ws.getDataStream()
+      .map(res => JSON.parse(res.data))
+      .subscribe(
+        message => {
+          let sentMessage = new Message();
+          Object.assign(sentMessage, message);
+          this.messages.push(sentMessage);
+        },
+        err => {
+          console.error(err);
+        }
+      );
   }
+
   destroyWebSocket(): void {
-    //this is the only place where i destroy/release my websocket resources
     if (this.sub) {
       try {
         this.sub.unsubscribe();
-      } catch(err) { }
+      } catch (err) {
+      }
     }
     if (this.ws) {
       try {
         this.ws.close(true);
-      } catch(err) { }
+      } catch (err) {
+      }
     }
   }
 
-  click(){
-    this.ws.send("some thing").subscribe({
+  createMessage(message: string): Message {
+    return new Message({
+      messageId: UUID.UUID(),
+      threadId: this.messageService.getMessageThreadId(this.username, 'aluba'),
+      username: this.username,
+      text: message,
+      sentTime: new Date,
+      isRead: false,
+      isFailed: false
+    });
+  }
+
+  send(messageStr) {
+    let newMessage = this.createMessage(messageStr);
+    console.log(newMessage.threadId);
+    this.ws.send(newMessage).subscribe({
+      error: () => {
+        let errorMessage = Object.assign(newMessage, {'isFailed': true});
+        this.messages.push(errorMessage);
+      },
       complete: () => {
-        console.log('done');
-        let newMessage = new Message(2,new Date,false,'xiaowang','some thing',true);
-        this.messages.push(newMessage);
       }
     });
+  }
+
+  toggleUsername(username) {
+    let threadId = this.messageService.getMessageThreadId(this.username, username);
+    localStorage.removeItem(this.username + "_" + username + "_threadId");
+    if (threadId != null) {
+      this.messageService.listMessgesById(threadId)
+        .map(res => res.json())
+        .subscribe(v => {
+          v.map(obj => {
+            let message = new Message();
+            Object.assign(message, obj.messages);
+            this.messages.push(message);
+          });
+        });
+    } else {
+      this.messageService.listMessages(this.username, username)
+        .subscribe(v => console.log(v));
+    }
   }
 }

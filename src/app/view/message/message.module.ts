@@ -6,11 +6,15 @@ import {CardComponent} from "./component";
 import {ListComponent} from "./component";
 import {TextComponent} from "./component";
 import {CommonModule} from "@angular/common";
+import {MessageService} from "./message.service";
+import {CzProfilePipe} from "app/component/pipe/czProfile";
+import {ThemeModule} from "app/component/themeModule";
 
 
 @NgModule({
   imports:[
     CommonModule,
+    ThemeModule,
     routing
   ],
   declarations:[
@@ -18,7 +22,10 @@ import {CommonModule} from "@angular/common";
     CardComponent,
     ListComponent,
     MessagesComponent,
-    TextComponent
+    TextComponent,
+  ],
+  providers:[
+    MessageService,
   ]
 })
 
