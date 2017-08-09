@@ -27,6 +27,5 @@ export class AppComponent {
       this.store.dispatch(new actions.LogoutAction);
     }*/
     this.isMenuCollapsed$ = this.store.select(reducers.getIsCollapsed);
-
   }
 }

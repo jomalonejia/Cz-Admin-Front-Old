@@ -26,7 +26,7 @@ export function loginReducer(state:LoginState=initialState,action:login.loginAct
       const login_token = login_result['token'];
       const login_imgUrl = login_result['imgUrl'];
       const login_username = login_result['username'];
-      const login_userId = login_result['id'];
+      const login_userId = login_result['userId'];
       return Object.assign(
         {}, state,
         {
@@ -34,7 +34,8 @@ export function loginReducer(state:LoginState=initialState,action:login.loginAct
           loginFailed:false,
           token:login_token,
           imgUrl:login_imgUrl,
-          username:login_username
+          username:login_username,
+          userId:login_userId
         }
         );
     case login.LOGIN_FAILED:

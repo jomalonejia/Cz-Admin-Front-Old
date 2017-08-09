@@ -3,7 +3,7 @@ import {$WebSocket, WebSocketSendMode} from 'angular2-websocket/angular2-websock
 import {Subscription} from "rxjs/Subscription";
 import {Message} from "app/component/model/message";
 import {Store} from "@ngrx/store";
-import { UUID } from 'angular2-uuid';
+import {UUID} from 'angular2-uuid';
 
 import * as _ from 'lodash';
 import * as reducers from '../../component/reducers';
@@ -26,14 +26,23 @@ export class MessageComponent {
   friends: MessageUser[] = [];
   username: string;
   profile$: Observable<string>;
+  activateUser:string;
+  userId:number;
 
   constructor(private store: Store<reducers.State>,
               private messageService: MessageService) {
     this.store.select(reducers.getUsername)
       .subscribe(username => this.username = username);
     this.profile$ = this.store.select(reducers.getImgUrl);
+    this.store.select(reducers.getActiveUser)
+      .subscribe(activateUser => this.activateUser = activateUser);
+    this.store.select(reducers.getUserId)
+      .subscribe(userId => this.userId = userId);
 
-    this.messageService.listRelatedUsers(1)
+  }
+
+  ngOnInit(){
+    this.messageService.listRelatedUsers(this.userId)
       .map(res => res.json())
       .subscribe(v => {
         v.map(user => {
@@ -42,11 +51,7 @@ export class MessageComponent {
           this.friends.push(friend);
         })
       });
-
-    /*let message1 = new Message(UUID.UUID(),'xiaoming','ni hao a',new Date,true,false);
-     let message2 = new Message(UUID.UUID(),'xiaowang','ni ye hao a',new Date,true,true);
-     this.messages.push(message1);
-     this.messages.push(message2);*/
+    this.toggleUsername(this.activateUser);
   }
 
   ngAfterViewInit() {
@@ -91,7 +96,7 @@ export class MessageComponent {
   createMessage(message: string): Message {
     return new Message({
       messageId: UUID.UUID(),
-      threadId: this.messageService.getMessageThreadId(this.username, 'aluba'),
+      threadId: this.messageService.getMessageThreadId(this.username, this.activateUser),
       username: this.username,
       text: message,
       sentTime: new Date,
@@ -102,7 +107,6 @@ export class MessageComponent {
 
   send(messageStr) {
     let newMessage = this.createMessage(messageStr);
-    console.log(newMessage.threadId);
     this.ws.send(newMessage).subscribe({
       error: () => {
         let errorMessage = Object.assign(newMessage, {'isFailed': true});
@@ -114,21 +118,36 @@ export class MessageComponent {
   }
 
   toggleUsername(username) {
+    this.messages = [];
     let threadId = this.messageService.getMessageThreadId(this.username, username);
-    localStorage.removeItem(this.username + "_" + username + "_threadId");
     if (threadId != null) {
       this.messageService.listMessgesById(threadId)
         .map(res => res.json())
-        .subscribe(v => {
-          v.map(obj => {
-            let message = new Message();
-            Object.assign(message, obj.messages);
-            this.messages.push(message);
-          });
+        .subscribe(res => {
+          if(res.messages.length>0){
+            res.messages.map(msg => {
+             let message = new Message();
+             Object.assign(message, msg);
+             this.messages.push(message);
+             });
+          }
         });
     } else {
       this.messageService.listMessages(this.username, username)
-        .subscribe(v => console.log(v));
+        .map(res => res.json())
+        .subscribe(res => {
+          if (res[0]) {
+           this.messageService.setMessageThreadId(this.username,username,res[0]._id);
+            if (res[0].messages.length > 0) {
+              this.messages.push(res[0].messages);
+            }
+          } else {
+            this.messageService.setMessageThreadId(this.username,username,res._id);
+            if (res.messages.length > 0) {
+              this.messages.push(res.messages);
+            }
+          }
+        });
     }
   }
 }

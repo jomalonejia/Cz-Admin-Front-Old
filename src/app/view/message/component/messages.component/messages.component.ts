@@ -8,6 +8,6 @@ import {Message} from "app/component/model/message";
 })
 
 export class MessagesComponent{
-  @Input() messages:Message[];
+  @Input() messages:Message[] = [];
   @Input() username:string;
 }

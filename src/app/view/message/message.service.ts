@@ -17,6 +17,10 @@ export class MessageService{
     return localStorage.getItem(selfUsername + "_" + oppositeUsername + "_threadId");
   }
 
+  public removeMessageThreadId(selfUsername:string,oppositeUsername:string):void{
+    localStorage.removeItem(selfUsername + "_" + oppositeUsername + "_threadId");
+  }
+
   public listMessgesById(threadId:string){
     return this.http.get('/koa/listMessagesById/'+threadId);
   }
