@@ -10,7 +10,6 @@ import {PAGES_MENU} from "app/view/pages.menu";
 
 export class ViewComponent{
   constructor(private _menuService: CzMenuService,) {
-
   }
 
   ngOnInit() {
