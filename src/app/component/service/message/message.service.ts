@@ -1,12 +1,17 @@
 import {Injectable} from "@angular/core";
 import {Http, RequestOptionsArgs} from "@angular/http";
 import {AuthHttp} from "angular2-jwt";
+import * as constants from 'app/component/constants';
 
 @Injectable()
 export class MessageService{
 
   constructor(private http:Http,private authHttp:AuthHttp){
 
+  }
+
+  public readMessage(url:string,messageId:string){
+    return this.http.post(url,{params:{'messageId':messageId}});
   }
 
   public setMessageThreadId(selfUsername:string,oppositeUsername:string,threadId:string):void{
@@ -22,16 +27,16 @@ export class MessageService{
   }
 
   public listMessgesById(threadId:string){
-    return this.http.get('/koa/listMessagesById/'+threadId);
+    return this.http.get(constants.KOA_LISTMESSAGESBYID_URL+threadId);
   }
 
   public listMessages(user1:string,user2:string){
     let params = [user1,user2];
-    return this.http.get('/koa/listMessages',{params:params})
+    return this.http.get(constants.KOA_LISTMESSAGES_URL,{params:params})
   }
 
   public listRelatedUsers(userId:Number){
     let params = {'userId':userId};
-    return this.authHttp.get('/api/user/listRelatedUsers',{params:params});
+    return this.authHttp.get(constants.LISTRELATEDUSERS_URL,{params:params});
   }
 }

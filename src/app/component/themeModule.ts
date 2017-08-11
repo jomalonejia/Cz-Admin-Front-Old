@@ -1,5 +1,6 @@
 import {NgModule, ModuleWithProviders}      from '@angular/core';
 import {CommonModule} from "@angular/common";
+import { MomentModule } from 'angular2-moment';
 
 import {AppTranslationModule} from "app/app.translation.module";
 
@@ -19,10 +20,13 @@ import {LoginService} from "./service";
 import {RegisterService} from "./service";
 import {AuthGuardActive} from "./service";
 import {CanLoginActivate} from "./service";
+import {MessageService} from "./service";
 
 
 import {CzProfilePipe} from "./pipe";
 import {RouterModule} from "@angular/router";
+
+
 
 
 
@@ -47,7 +51,8 @@ const NGA_SERVICES = [
   LoginService,
   RegisterService,
   AuthGuardActive,
-  CanLoginActivate
+  CanLoginActivate,
+  MessageService
 ];
 
 const THEME_PIPES = [
@@ -62,6 +67,7 @@ const THEME_PIPES = [
   imports:[
     CommonModule,
     RouterModule,
+    MomentModule,
     AppTranslationModule
   ],
   exports:[

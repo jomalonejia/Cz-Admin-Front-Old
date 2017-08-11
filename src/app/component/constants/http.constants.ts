@@ -9,5 +9,6 @@ export const SETSETTINGS_URL = URL_PREFIX + USER_PREFIX + 'setSettings';
 export const GETUSERLIST_URL = URL_PREFIX + USER_PREFIX + 'listUserWithRole';
 export const UPDATEUSER_URL = URL_PREFIX + USER_PREFIX + 'updateUser';
 export const DELETEUSER_URL = URL_PREFIX + USER_PREFIX + 'deleteUser';
+export const LISTRELATEDUSERS_URL = URL_PREFIX + USER_PREFIX + 'listRelatedUsers';
 
 

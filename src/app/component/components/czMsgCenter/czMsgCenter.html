@@ -22,7 +22,7 @@
           </div>
           <div class="msg-area">
             <div>{{ msg.text }}</div>
-            <span>{{ msg.time }}</span>
+            <span>{{msg.sentTime }}</span>
           </div>
         </a>
       </div>
@@ -42,12 +42,12 @@
         <a href>Settings</a>
       </div>
       <div class="msg-list">
-        <a *ngFor="let msg of messages" href class="clearfix">
-          <div class="img-area"><img [ngClass]="{'photo-msg-item': !msg.image}"
-                                     src="{{ ( msg.image ||  (msg.name | czProfilePipe)) }}"></div>
+        <a *ngFor="let msg of messages" (click)="readMessage(msg)" class="clearfix">
+          <div class="img-area"><img [ngClass]="{'photo-msg-item': !msg.profile}"
+                                     src="{{ msg.profile | czProfilePipe }}"></div>
           <div class="msg-area">
             <div>{{ msg.text }}</div>
-            <span>{{ msg.sentTime }}</span>
+            <span>{{ msg.sentTime | amCalendar}}</span>
           </div>
         </a>
       </div>

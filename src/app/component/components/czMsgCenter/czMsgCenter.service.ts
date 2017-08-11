@@ -1,7 +1,17 @@
 import {Injectable} from '@angular/core'
+import {Http} from "@angular/http";
+import * as koaConstants from 'app/component/constants/koa.constants';
 
 @Injectable()
 export class CzMsgCenterService {
+
+  constructor(private http:Http){
+
+  }
+
+  public getMessagesTodos(username:string) {
+    return this.http.get(koaConstants.KOA_GETMESSAGETODO_URL,{params:{'username':username}})
+  }
 
   private _notifications = [
     {
@@ -79,9 +89,7 @@ export class CzMsgCenterService {
     }
   ];
 
-  public getMessages():Array<Object> {
-    return this._messages;
-  }
+
 
   public getNotifications():Array<Object> {
     return this._notifications;

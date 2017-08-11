@@ -7,7 +7,7 @@ import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/throttleTime';
 import 'rxjs/add/operator/skip';
 import 'rxjs/add/operator/takeUntil';
 import { of } from 'rxjs/observable/of';
@@ -28,9 +28,9 @@ export class LoginEffects {
   }
 
   @Effect()
-  login$: Observable<Action>|any  = this.action$
+  login$: Observable<Action>  = this.action$
     .ofType(login.LOGIN)
-    .debounceTime(1000)
+    .throttleTime(1000)
     .map(toPayload)
     .switchMap((user:LoginUser) => {
       return this.loginService.login(constants.LOGIN_URL,user)
@@ -49,7 +49,7 @@ export class LoginEffects {
   @Effect()
   logout$:Observable<Action> = this.action$
     .ofType(login.LOGOUT)
-    .debounceTime(1000)
+    .throttleTime(1000)
     .map(toPayload)
     .switchMap(() => {
        return this.loginService.logout(constants.LOGOUT_URL)

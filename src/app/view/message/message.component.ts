@@ -8,7 +8,7 @@ import {UUID} from 'angular2-uuid';
 import * as _ from 'lodash';
 import * as reducers from '../../component/reducers';
 import {Observable} from "rxjs/Observable";
-import {MessageService} from "app/view/message/message.service";
+import {MessageService} from "app/component/service";
 import {MessageUser} from "./model/message.user";
 
 @Component({
@@ -22,23 +22,25 @@ export class MessageComponent {
   ws: $WebSocket;
   sub: Subscription;
   messages: Message[] = [];
+  messages$:Observable<Message[]>;
   message: Message;
   friends: MessageUser[] = [];
   username: string;
-  profile$: Observable<string>;
+  profile:string;
   activateUser:string;
   userId:number;
 
   constructor(private store: Store<reducers.State>,
               private messageService: MessageService) {
     this.store.select(reducers.getUsername)
-      .subscribe(username => this.username = username);
-    this.profile$ = this.store.select(reducers.getImgUrl);
+      .subscribe(username => this.username = username).unsubscribe();
+    this.store.select(reducers.getImgUrl)
+      .subscribe(profile => this.profile = profile);
     this.store.select(reducers.getActiveUser)
       .subscribe(activateUser => this.activateUser = activateUser);
     this.store.select(reducers.getUserId)
-      .subscribe(userId => this.userId = userId);
-
+      .subscribe(userId => this.userId = userId).unsubscribe();
+    this.messages$ = this.store.select(reducers.getMessages);
   }
 
   ngOnInit(){
@@ -99,8 +101,9 @@ export class MessageComponent {
       threadId: this.messageService.getMessageThreadId(this.username, this.activateUser),
       username: this.username,
       text: message,
+      profile:this.profile,
       sentTime: new Date,
-      isRead: false,
+      sentTo: this.activateUser,
       isFailed: false
     });
   }
@@ -118,7 +121,9 @@ export class MessageComponent {
   }
 
   toggleUsername(username) {
+    if(username === this.username){return}
     this.messages = [];
+    this.messageService.removeMessageThreadId(this.username,username);
     let threadId = this.messageService.getMessageThreadId(this.username, username);
     if (threadId != null) {
       this.messageService.listMessgesById(threadId)
@@ -139,11 +144,11 @@ export class MessageComponent {
           if (res[0]) {
            this.messageService.setMessageThreadId(this.username,username,res[0]._id);
             if (res[0].messages.length > 0) {
-              this.messages.push(res[0].messages);
+              res[0].messages.map(message => this.messages.push(message));
             }
           } else {
             this.messageService.setMessageThreadId(this.username,username,res._id);
-            if (res.messages.length > 0) {
+            if (res && res.messages.length > 0) {
               this.messages.push(res.messages);
             }
           }

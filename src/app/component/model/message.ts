@@ -4,8 +4,9 @@ export class Message {
   public threadId: string;
   public username: string;
   public text: string;
+  public profile:string;
   public sentTime: Date;
-  public isRead: boolean;
+  public sentTo: string;
   public isFailed: boolean;
 
 
@@ -14,8 +15,9 @@ export class Message {
     this.threadId = obj && obj.threadId || '';
     this.username = obj && obj.username || '';
     this.text = obj && obj.text || '';
+    this.profile = obj && obj.profile || '';
     this.sentTime = obj && obj.sentTime || '';
-    this.isRead = obj && obj.isRead || false;
+    this.sentTo = obj && obj.sentTo || '';
     this.isFailed = obj && obj.isFailed || false;
   }
 }

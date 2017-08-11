@@ -44,3 +44,4 @@ export const getUserId = createSelector(getLoginState,fromLogin.getUserId);
 
 export const getMessageState = (state:State) => state.message;
 export const getActiveUser = createSelector(getMessageState,fromMessage.getActiveUser);
+export const getMessages = createSelector(getMessageState, fromMessage.getMessages);

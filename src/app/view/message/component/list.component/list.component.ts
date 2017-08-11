@@ -13,6 +13,7 @@ import {Observable} from "rxjs/Observable";
 
 export class ListComponent{
   @Input() friends:MessageUser[];
+  @Input() username:string;
   @Output() toggleUsername:EventEmitter<string> = new EventEmitter();
 
   activeUser$:Observable<string>;
@@ -21,8 +22,8 @@ export class ListComponent{
     this.activeUser$ = store.select(reducers.getActiveUser);
   }
 
-  toggleUser(username:string){
-    this.store.dispatch(new messageAction.ToggleMessageUserAction(username));
-    this.toggleUsername.next(username);
+  toggleUser(oppositeName:string){
+    if(this.username === oppositeName) return;
+    this.store.dispatch(new messageAction.ToggleMessageUserAction({username:this.username,oppositeName:oppositeName}));
   }
 }

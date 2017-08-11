@@ -9,6 +9,7 @@ import * as constants from '../constants';
 import {User} from "../model";
 import {RegisterService} from "../service";
 import {of} from "rxjs/observable/of";
+import 'rxjs/add/operator/throttleTime';
 import {GlobalState} from "app/component/global.state";
 
 @Injectable()
@@ -21,9 +22,9 @@ export class RegisterEffects {
   }
 
   @Effect()
-  login$: Observable<Action> | any = this.action$
+  login$: Observable<Action>  = this.action$
     .ofType(actions.REGISTER)
-    .debounceTime(1000)
+    .throttleTime(1000)
     .map(toPayload)
     .switchMap((user: User) => {
       return this.registerService.register(constants.REGISTER_URL, user)

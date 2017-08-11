@@ -1,4 +1,5 @@
 import {NgModule}   from '@angular/core';
+import { MomentModule } from 'angular2-moment';
 import {routing} from "./message.routing";
 import {MessageComponent} from "./message.component";
 import {MessagesComponent} from "./component";
@@ -6,8 +7,6 @@ import {CardComponent} from "./component";
 import {ListComponent} from "./component";
 import {TextComponent} from "./component";
 import {CommonModule} from "@angular/common";
-import {MessageService} from "./message.service";
-import {CzProfilePipe} from "app/component/pipe/czProfile";
 import {ThemeModule} from "app/component/themeModule";
 
 
@@ -15,6 +14,7 @@ import {ThemeModule} from "app/component/themeModule";
   imports:[
     CommonModule,
     ThemeModule,
+    MomentModule,
     routing
   ],
   declarations:[
@@ -25,7 +25,6 @@ import {ThemeModule} from "app/component/themeModule";
     TextComponent,
   ],
   providers:[
-    MessageService,
   ]
 })
 
