@@ -33,6 +33,7 @@ export class CzPageTop {
 
   logout() {
     this.store.dispatch(new actions.LogoutAction);
+    this.store.dispatch(new actions.ClearMessage());
     this.router.navigateByUrl('view');
     return false;
   }

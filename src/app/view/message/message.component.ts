@@ -5,8 +5,8 @@ import {Message} from "app/component/model/message";
 import {Store} from "@ngrx/store";
 import {UUID} from 'angular2-uuid';
 
-import * as _ from 'lodash';
-import * as reducers from '../../component/reducers';
+import * as reducers from 'app/component/reducers';
+import * as messageAction from 'app/component/actions/message';
 import {Observable} from "rxjs/Observable";
 import {MessageService} from "app/component/service";
 import {MessageUser} from "./model/message.user";
@@ -21,7 +21,6 @@ export class MessageComponent {
 
   ws: $WebSocket;
   sub: Subscription;
-  messages: Message[] = [];
   messages$:Observable<Message[]>;
   message: Message;
   friends: MessageUser[] = [];
@@ -53,7 +52,7 @@ export class MessageComponent {
           this.friends.push(friend);
         })
       });
-    this.toggleUsername(this.activateUser);
+    //this.toggleUsername(this.activateUser);
   }
 
   ngAfterViewInit() {
@@ -72,7 +71,8 @@ export class MessageComponent {
         message => {
           let sentMessage = new Message();
           Object.assign(sentMessage, message);
-          this.messages.push(sentMessage);
+          console.log(sentMessage);
+          //this.messages.push(sentMessage);
         },
         err => {
           console.error(err);
@@ -113,46 +113,13 @@ export class MessageComponent {
     this.ws.send(newMessage).subscribe({
       error: () => {
         let errorMessage = Object.assign(newMessage, {'isFailed': true});
-        this.messages.push(errorMessage);
+        this.store.dispatch(new messageAction.SendMessage(errorMessage));
       },
       complete: () => {
+        this.store.dispatch(new messageAction.SendMessage(newMessage));
       }
     });
   }
 
-  toggleUsername(username) {
-    if(username === this.username){return}
-    this.messages = [];
-    this.messageService.removeMessageThreadId(this.username,username);
-    let threadId = this.messageService.getMessageThreadId(this.username, username);
-    if (threadId != null) {
-      this.messageService.listMessgesById(threadId)
-        .map(res => res.json())
-        .subscribe(res => {
-          if(res.messages.length>0){
-            res.messages.map(msg => {
-             let message = new Message();
-             Object.assign(message, msg);
-             this.messages.push(message);
-             });
-          }
-        });
-    } else {
-      this.messageService.listMessages(this.username, username)
-        .map(res => res.json())
-        .subscribe(res => {
-          if (res[0]) {
-           this.messageService.setMessageThreadId(this.username,username,res[0]._id);
-            if (res[0].messages.length > 0) {
-              res[0].messages.map(message => this.messages.push(message));
-            }
-          } else {
-            this.messageService.setMessageThreadId(this.username,username,res._id);
-            if (res && res.messages.length > 0) {
-              this.messages.push(res.messages);
-            }
-          }
-        });
-    }
-  }
+
 }

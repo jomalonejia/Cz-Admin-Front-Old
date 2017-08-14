@@ -6,7 +6,8 @@ import * as constants from 'app/component/constants';
 @Injectable()
 export class MessageService{
 
-  constructor(private http:Http,private authHttp:AuthHttp){
+  constructor(private http:Http,
+              private authHttp:AuthHttp){
 
   }
 

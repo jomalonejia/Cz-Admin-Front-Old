@@ -28,10 +28,10 @@ export class CzMsgCenter {
     this.store.select(reducers.getUsername)
       .subscribe(username => this.username = username);
 
-
     this._czMsgCenterService.getMessagesTodos(this.username)
       .map(res => res.json())
       .subscribe(res => {
+        console.log(res);
         res.map(obj => {
           let message = new Message();
           Object.assign(message,
@@ -45,6 +45,10 @@ export class CzMsgCenter {
   }
 
   readMessage(message){
+    let index = this.messages.indexOf(message);
+    if (index > -1) {
+      this.messages.splice(index, 1);
+    }
     this.store.dispatch(new messageActions.ReadMessage({threadId:message.threadId,activeUser:message.username}));
   }
 
