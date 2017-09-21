@@ -12,6 +12,7 @@ export const routes: Routes = [
       {path:'',redirectTo:'main',pathMatch:'full'},
       {path:'main',loadChildren:'./main/main.module#MainModule'},
       {path:'manager',loadChildren:'./manager/manager.module#ManagerModule'},
+      {path:'item',loadChildren:'./item/item.module#ItemModule'},
       {path:'settings', loadChildren:'./settings/settings.module#SettingsModule'},
       {path:'profile', loadChildren:'./profile/profile.module#ProfileModule'},
       {path:'message', loadChildren:'./message/message.module#MessageModule'}

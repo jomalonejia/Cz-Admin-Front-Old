@@ -51,6 +51,7 @@ export class LoginEffects {
     .throttleTime(1000)
     .map(toPayload)
     .switchMap(() => {
+      console.log('a');
        return this.loginService.logout(constants.LOGOUT_URL)
          .map(res => {
            this.router.navigateByUrl('login');

@@ -31,7 +31,6 @@ export class CzMsgCenter {
     this._czMsgCenterService.getMessagesTodos(this.username)
       .map(res => res.json())
       .subscribe(res => {
-        console.log(res);
         res.map(obj => {
           let message = new Message();
           Object.assign(message,

@@ -1,19 +1,19 @@
 {
   "login": {
-    "title": "Sign in to cz-admin",
-    "signup_link": "New to cz-admin? Sign up!",
-    "username": "Username",
-    "password": "Password",
-    "sign_in": "Sign in",
-    "forgot_password": "Forgot password?",
-    "sign_from_app_text": "or Sign in with one click",
-    "share_on_facebook": "Share on Facebook",
-    "share_on_twitter": "Share on Twitter",
-    "share_on_google_plus": "Share on Google Plus",
-    "login_failed_error":"Your account or password is not correct"
+    "title": "cz-admin",
+    "signup_link": "立即注册",
+    "username": "用户名",
+    "password": "密码",
+    "sign_in": "登录",
+    "forgot_password": "忘记密码？",
+    "sign_from_app_text": "一键注册",
+    "share_on_facebook": "分享到 Facebook",
+    "share_on_twitter": "分享到 Twitter",
+    "share_on_google_plus": "分享到 Google Plus",
+    "login_failed_error":"用户名或者密码错误"
   },
   "register":{
-    "title": "Sign up to cz-admin",
+    "title": "cz-admin",
     "firstName": "FirstName",
     "firstName_null_error":"FirstName is required",
     "firstName_min_error":"FirstName length can not less than 4",
@@ -67,8 +67,6 @@
       "ck_editor": "CKEditor",
       "manager":"Manager",
       "user":"User",
-      "item":"Item",
-      "list":"List",
       "pages": "Pages",
       "login": "Login",
       "register": "Register"

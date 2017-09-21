@@ -4,3 +4,4 @@ export * from './czSidebar';
 export * from './czMenu';
 export * from './czMenu/czMenuItem'
 export * from './czCard';
+export * from './czImage';

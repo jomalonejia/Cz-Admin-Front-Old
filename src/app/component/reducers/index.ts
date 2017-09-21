@@ -3,10 +3,12 @@ import {createSelector} from 'reselect';
 import {compose} from "@ngrx/core";
 import {environment} from "environments/environment";
 import {storeFreeze} from 'ngrx-store-freeze';
+import {localStorageSync} from "ngrx-store-localstorage";
+
 import * as fromLayout from '../reducers/layout';
 import * as fromLogin from '../reducers/login';
 import * as fromMessage from '../reducers/message';
-import {localStorageSync} from "ngrx-store-localstorage";
+
 
 
 export interface State {

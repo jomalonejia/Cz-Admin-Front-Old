@@ -6,7 +6,6 @@ import {AppTranslationModule} from "app/app.translation.module";
 import {routing} from './profile.routing';
 import {ThemeModule} from "app/component/themeModule";
 import {ProfileComponent} from "./profile.component";
-import {NgUploaderModule} from "ngx-uploader";
 import {FileUploadModule} from "ng2-file-upload";
 
 @NgModule({

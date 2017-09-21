@@ -33,7 +33,29 @@ export const PAGES_MENU = [
                 title: 'general.menu.user',
               }
             }
+          },
+        ]
+      },
+      {
+        path: 'item',
+        data: {
+          menu: {
+            title: 'general.menu.item',
+            icon: 'ion-edit',
+            selected: false,
+            expanded: false,
+            order: 100,
           }
+        },
+        children: [
+          {
+            path: 'list',
+            data: {
+              menu: {
+                title: 'general.menu.list',
+              }
+            }
+          },
         ]
       },
       {

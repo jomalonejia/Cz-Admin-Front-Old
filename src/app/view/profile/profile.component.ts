@@ -15,13 +15,13 @@ import * as constants from '../../component/constants';
 })
 
 export class ProfileComponent{
-  public defaultPicture = 'default';
+  public defaultPicture = 'default-profile';
   public profile$:Observable<string>;
   public uploadInProgress:boolean;
 
   @Input() canDelete:boolean = true;
 
-  uploader:FileUploader
+  uploader:FileUploader;
 
 
 
@@ -39,7 +39,7 @@ export class ProfileComponent{
     this.uploader = new FileUploader({
       url: "api/user/profileUpload",
       method: "POST",
-      itemAlias: "uploadedfile",
+      itemAlias: "itemImageUpload",
       authTokenHeader:constants.TOKEN_HEADER,
       authToken:token,
       autoUpload:true

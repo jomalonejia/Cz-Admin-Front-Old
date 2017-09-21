@@ -1,4 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgModule} from '@angular/core';
 import {Http, HttpModule, RequestOptions} from "@angular/http";
 
@@ -23,6 +24,7 @@ import * as constants from './component/constants';
 
 
 
+
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
     tokenName: constants.TOKEN_NAME,
@@ -39,6 +41,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpModule,
     ViewModule,
     ThemeModule.forRoot(),
