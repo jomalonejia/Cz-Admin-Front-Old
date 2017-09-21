@@ -9,7 +9,7 @@ import {ItemService} from "app/view/item/item.service";
       <h1 md-dialog-title>Edit</h1>
       <div md-dialog-content>
         <quill-editor [(ngModel)]="content"
-                      [options]="editorOptions">
+                      [options]="editorOptions" (change)="change()">
         </quill-editor>
       </div>
       <div md-dialog-actions>
@@ -34,6 +34,10 @@ export class ItemEditContentComponent {
 
 
   ngOnInit() {
+
+  }
+
+  change(){
   }
 
   addItemContent(){
