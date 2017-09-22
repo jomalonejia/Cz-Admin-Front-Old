@@ -44,7 +44,6 @@ export class ItemAddComponent {
   }
 
   changeImage() {
-    console.log('a');
   }
 }
 

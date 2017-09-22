@@ -38,6 +38,7 @@ export class ItemEditContentComponent {
   }
 
   change(){
+
   }
 
   addItemContent(){
